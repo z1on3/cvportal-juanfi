@@ -122,21 +122,17 @@
                     <img src="assets/MainPic.PNG" class="img-fluid" />
                 </div>
 				
-				<div class="info"><center>
-						<div class="info-ip">
-						<img src="assets/img/ip.png" width="20px" height="20px" />
+				<div class="meta">
+					<div class="meta-status">
+						<span class="status-dot dot-red"></span>
+						<span class="status-disconnected"><span class="blinking1">Disconnected</span></span>
+					</div>
+					<div class="meta-net">
 						<span>$(ip)</span>
-						</div>
-						<div class="info-mac">
-						<img src="assets/img/mac.png" width="20px" height="20px" />
+						<span class="meta-sep">&middot;</span>
 						<span>$(mac)</span>
-						</div>
-					</center>
+					</div>
 				</div>
-				
-				<center>
-				<span class="status-disconnected">Status: <span class="blinking1">Disconnected</span></span><br>
-                </center>
             </div>
 			
             <div class="col-sm-7">
@@ -149,21 +145,13 @@
 					</div>
 					<br>
 					<button type="button" id="insertBtn" onclick="insertBtnAction(); return false" class="btn btn-success btn-block"  data-toggle="modal" >INSERT COIN</button>
-					<div style="margin-bottom:-5px"></div>
-					<br>
-					<button type="button" id="promoRateBtn" onclick="promoBtnAction(); return false" class="btn btn-warning" style="display: block; width: 100%; color: #fff; text-shadow: 0px 1px 2px #000;">PROMO RATES</button>
-					<div style="margin-top: 18px"></div>
-					
-					<button type="button" id="chargingBtn" onclick="chargingBtnAction(); return false" class="btn btn-success" style="display: block; width: 100%; color: #fff; text-shadow: 0px 1px 2px #000;">CHARGING STATION</button>
-					<div style="margin-top: 18px"></div>
-					
-					<button type="button" id="eloadBtn" onclick="eloadBtnAction(); return false" class="btn btn-info" style="display: block; width: 100%; color: #fff; text-shadow: 0px 1px 2px #000;">E-LOAD</button>
-					<div style="margin-top: 18px"></div>
-					
-					<button type="button" id="memberLoginBtn" class="btn btn-secondary" data-toggle="modal" data-target="#memberModal" style="display: block; width: 100%; text-shadow: 0px 1px 3px #000;">MEMBER LOGIN</button>
-					<div style="margin-bottom:-5px"></div>
-					<br>
-						
+					<div class="secondary-actions">
+						<button type="button" id="promoRateBtn" onclick="promoBtnAction(); return false" class="btn btn-warning" style="display: block; width: 100%; color: #fff; text-shadow: 0px 1px 2px #000;">PROMO RATES</button>
+						<button type="button" id="chargingBtn" onclick="chargingBtnAction(); return false" class="btn btn-success" style="display: block; width: 100%; color: #fff; text-shadow: 0px 1px 2px #000;">CHARGING STATION</button>
+						<button type="button" id="eloadBtn" onclick="eloadBtnAction(); return false" class="btn btn-info" style="display: block; width: 100%; color: #fff; text-shadow: 0px 1px 2px #000;">E-LOAD</button>
+						<button type="button" id="memberLoginBtn" class="btn btn-secondary" data-toggle="modal" data-target="#memberModal" style="display: block; width: 100%; text-shadow: 0px 1px 3px #000;">MEMBER LOGIN</button>
+					</div>
+
 					<div class="form-group">
 						<span class="form-text text-muted" style="padding: 5px">VOUCHER</span>
 						<input type="voucher" class="form-control" id="voucherInput" aria-describedby="voucherHelp" placeholder="Voucher here..">
