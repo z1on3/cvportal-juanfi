@@ -355,60 +355,97 @@ label,
     font-weight: 600;
 }
 
-.form-group {
+/* ---------- Auth card: Voucher / Member tabs ---------- */
+
+.auth-card {
     border: 1px solid var(--edge-soft);
-    border-top: 2px solid var(--cyan);
-    border-radius: 0;
-    padding: 16px 16px 18px;
     background: var(--field);
+    margin-top: 2px;
 }
 
-/* Collapse the legacy <br> spacers so the voucher block stays compact */
-.form-group br {
-    display: none;
+/* Radios drive the tabs (CSS-only, no JS); kept accessible but out of view */
+.tab-radio {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
 }
 
-.form-group .form-text {
-    padding: 0 !important;
-    display: block;
+.auth-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--edge-soft);
+}
+
+.tab-label {
+    flex: 1;
+    text-align: center;
     margin: 0;
-}
-
-/* "VOUCHER" turns into a cyan mono eyebrow to match the HUD panels */
-.form-group > .form-text:first-child {
-    color: var(--cyan) !important;
+    padding: 13px 10px;
+    color: var(--muted);
     font-family: var(--font-mono);
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: .16em;
-    margin-bottom: 10px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: color .15s ease, border-color .15s ease, background .15s ease;
 }
 
-.form-group > .form-text:first-child::before {
-    content: "\25A0";
-    font-size: 8px;
-    margin-right: 8px;
-    vertical-align: 1px;
+.tab-label:hover {
+    color: var(--ink);
+}
+
+#tab-voucher:checked ~ .auth-tabs label[for="tab-voucher"],
+#tab-member:checked ~ .auth-tabs label[for="tab-member"] {
     color: var(--cyan);
+    border-bottom-color: var(--cyan);
+    background: rgba(0, 217, 255, .04);
 }
 
-.form-group #voucherInput {
+/* Keyboard focus visibility (label is focusable target via its radio) */
+.tab-radio:focus-visible ~ .auth-tabs label[for="tab-voucher"],
+.tab-radio:focus-visible ~ .auth-tabs label[for="tab-member"] {
+    outline: 2px solid var(--cyan);
+    outline-offset: -2px;
+}
+
+.tab-content {
+    display: none;
+    padding: 16px;
+}
+
+#tab-voucher:checked ~ .voucher-content {
+    display: block;
+}
+
+#tab-member:checked ~ .member-content {
+    display: block;
+}
+
+.tab-content .form-control {
+    margin-bottom: 12px;
+}
+
+.tab-content .btn-block {
+    width: 100%;
+    margin: 0;
+}
+
+.member-content label {
+    display: block;
+    color: var(--muted) !important;
+    font-size: 12px;
+    margin: 2px 0 6px;
+}
+
+.tab-hint {
+    display: block;
+    margin-top: 11px;
     text-align: center;
-    letter-spacing: .18em;
-    text-transform: uppercase;
-    margin-bottom: 4px;
-}
-
-.form-group #voucherHelp {
-    margin-top: 8px;
-    font-size: 11.5px;
     color: var(--faint) !important;
-    text-align: center;
-}
-
-.form-group #connectBtn {
-    margin-top: 14px !important;
+    font-size: 11.5px;
 }
 
 /* ---------- Buttons: outline HUD style ---------- */

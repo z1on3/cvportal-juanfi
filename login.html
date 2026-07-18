@@ -146,19 +146,36 @@
 					<br>
 					<button type="button" id="insertBtn" onclick="insertBtnAction(); return false" class="btn btn-success btn-block"  data-toggle="modal" >INSERT COIN</button>
 					<div class="secondary-actions">
-						<button type="button" id="promoRateBtn" onclick="promoBtnAction(); return false" class="btn btn-warning" style="display: block; width: 100%; color: #fff; text-shadow: 0px 1px 2px #000;">PROMO RATES</button>
+						<button type="button" id="promoRateBtn" onclick="promoBtnAction(); return false" class="btn btn-warning" style="display: block; width: 100%; color: #fff; text-shadow: 0px 1px 2px #000;">RATES</button>
 						<button type="button" id="chargingBtn" onclick="chargingBtnAction(); return false" class="btn btn-success" style="display: block; width: 100%; color: #fff; text-shadow: 0px 1px 2px #000;">CHARGING STATION</button>
 						<button type="button" id="eloadBtn" onclick="eloadBtnAction(); return false" class="btn btn-info" style="display: block; width: 100%; color: #fff; text-shadow: 0px 1px 2px #000;">E-LOAD</button>
-						<button type="button" id="memberLoginBtn" class="btn btn-secondary" data-toggle="modal" data-target="#memberModal" style="display: block; width: 100%; text-shadow: 0px 1px 3px #000;">MEMBER LOGIN</button>
 					</div>
 
-					<div class="form-group">
-						<span class="form-text text-muted" style="padding: 5px">VOUCHER</span>
-						<input type="voucher" class="form-control" id="voucherInput" aria-describedby="voucherHelp" placeholder="Voucher here..">
-						<br/>
-						<button type="button" id="scanQrBtn" onclick="$('#scanQrModal').modal('show'); return false" class="btn btn-primary btn-block" style="display: none">Purchase Via QR</button>
-						<small id="voucherHelp" class="form-text text-muted" style="padding: 5px">Please enter voucher code if have existing</small>
-						<button type="button" id="connectBtn" onClick="doLogin(); return false" class="btn btn-info btn-block" style="margin-top: 20px; display: block; width: 100%; text-shadow: 0px 1px 3px #000;">CONNECT</button>
+					<div class="auth-card">
+						<input type="radio" name="authtab" id="tab-voucher" class="tab-radio" checked>
+						<input type="radio" name="authtab" id="tab-member" class="tab-radio">
+						<div class="auth-tabs">
+							<label for="tab-voucher" class="tab-label">Voucher</label>
+							<label for="tab-member" class="tab-label">Member</label>
+						</div>
+						<div class="tab-content voucher-content">
+							<input type="voucher" class="form-control" id="voucherInput" aria-describedby="voucherHelp" placeholder="Voucher Code">
+							<button type="button" id="scanQrBtn" onclick="$('#scanQrModal').modal('show'); return false" class="btn btn-primary btn-block" style="display: none">Purchase Via QR</button>
+							<button type="button" id="connectBtn" onClick="doLogin(); return false" class="btn btn-info btn-block">ACTIVATE VOUCHER</button>
+							<small id="voucherHelp" class="tab-hint">Enter your voucher code to connect</small>
+						</div>
+						<div class="tab-content member-content">
+							<form name="login" action="$(link-login-only)" method="post" $(if chap-id) onSubmit="return doLoginMember()" $(endif)>
+								<input type="hidden" name="dst" value="$(link-orig)" />
+								<input type="hidden" name="popup" value="true" />
+								<label>Username</label>
+								<input name="username" type="text" value="$(username)" placeholder="Username" class="form-control" />
+								<label>Password</label>
+								<input name="password" type="password" placeholder="Password" class="form-control" />
+								<button class="btn btn-info btn-block" type="submit">LOGIN</button>
+							</form>
+							<small class="tab-hint">Log in with your member account</small>
+						</div>
 					</div>
 					
 					
@@ -233,7 +250,7 @@
 					  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 						<div class="modal-content">
 						  <div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLabel">Promo Rates</h5>
+							<h5 class="modal-title" id="exampleModalLabel">Rates</h5>
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							  <span aria-hidden="true" style="color: #fff">&times;</span>
 							</button>
@@ -354,43 +371,7 @@
 					
 					
 		
-				<div class="modal fade" id="memberModal" role="dialog" data-backdrop="static" data-keyboard="false">
-					<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-						
-						<button type="button" class="close" data-dismiss="modal" style="color: #fff">&times;</button><br>        
-		  
-						</div>
-						<div class="modal-body">
-						<!-- content -->
-						<div class="memdiv">
-						<center>
-						<!-- title -->
-						<h4 class="modal-title"><span style="color: #2e86de; text-shadow: 1px 2px 3px #000">Member Login</span></h4>
-						<form name="login" action="$(link-login-only)" method="post" $(if chap-id) onSubmit="return doLoginMember()" $(endif)>
-							<input type="hidden" name="dst" value="$(link-orig)" />
-							<input type="hidden" name="popup" value="true" />
-							<span style="float: left; color: #a4b0be">Username</span><br>
-							<input name="username" type="text" value="$(username)" /><br>
-							<span style="float: left; color: #a4b0be">Password</span><br>
-							<input name="password" type="password" /><br>
-							<button class="btn btn-primary" type="submit" value="Connect" style="width: 50%">Login</button>
-						</form>
-						</center>
-		  
-						</div>
-		  
-						</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal" style="color: #fff">Close</button>
-					</div>
 				</div>
-      
-				</div>
-			</div>
-
-                </div>
 				<div class="footer">
 					<span class="footers">
 					Powered by: <a href="https://www.facebook.com/groups/1172413279934139">JuanFi System v4.1</a> &copy; All rights reserved 2022<br>
