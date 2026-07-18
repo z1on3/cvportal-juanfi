@@ -1,0 +1,901 @@
+/* JuanFi Captive Portal — terminal/HUD theme (matched to the admin console).
+   CSS-only reskin layered over Bootstrap: it overrides look only and keeps
+   every class/id the firmware HTML + core.js/eload.js rely on. Inline colors
+   baked into the markup are beaten with !important where needed. No external
+   assets — everything is served from device flash. */
+
+:root {
+    --bg: #030809;
+    --surface: #071014;
+    --surface-2: #0c181e;
+    --field: #050d11;
+    --edge: #16333d;
+    --edge-soft: #0e2229;
+    --ink: #e6f1f3;
+    --muted: #7d939b;
+    --faint: #46585f;
+    --cyan: #00d9ff;
+    --cyan-soft: rgba(0, 217, 255, .1);
+    --blue: #4da3ff;
+    --green: #2ee6a8;
+    --red: #ff5257;
+    --amber: #ffb224;
+    --font-ui: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-mono: ui-monospace, "Cascadia Mono", "SF Mono", Consolas, Menlo, monospace;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body,
+body#loginBody {
+    padding: 14px;
+    margin: 0;
+    background-color: var(--bg);
+    background-image:
+        linear-gradient(rgba(0, 217, 255, .028) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 217, 255, .028) 1px, transparent 1px);
+    background-size: 42px 42px;
+    color: var(--ink);
+    font-family: var(--font-ui);
+    font-size: 14px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+    background: var(--cyan-soft);
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--edge);
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* ---------- Shell ---------- */
+
+.container {
+    background-color: var(--surface);
+    padding: 22px;
+    max-width: 900px;
+    margin: 18px auto;
+    border: 1px solid var(--edge-soft);
+    border-radius: 0;
+    box-shadow: 0 0 0 1px rgba(0, 217, 255, .03), 0 24px 60px rgba(0, 0, 0, .45);
+}
+
+.img-fluid {
+    filter: drop-shadow(0 0 12px rgba(0, 217, 255, .18));
+}
+
+/* ---------- Device info (IP / MAC) ---------- */
+
+.info {
+    height: auto;
+    color: var(--ink);
+    margin-bottom: 6px;
+}
+
+.info-ip,
+.info-mac {
+    height: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin: 4px 6px;
+    padding: 6px 12px;
+    border: 1px solid var(--edge-soft);
+    background: var(--field);
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: var(--ink);
+}
+
+.info-ip img,
+.info-mac img {
+    opacity: .8;
+}
+
+/* ---------- Connection status pill ---------- */
+
+.status-disconnected,
+.status-connected {
+    color: var(--ink);
+    border: 1px solid var(--edge);
+    display: inline-block;
+    margin-top: 6px;
+    padding: 8px 16px;
+    border-radius: 0;
+    line-height: 1.4;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .14em;
+    background: var(--field);
+}
+
+.status-connected {
+    border-color: rgba(46, 230, 168, .4);
+}
+
+.status-disconnected {
+    border-color: rgba(255, 82, 87, .4);
+}
+
+.blinking1 {
+    animation: blinkingText1 1.2s infinite;
+}
+
+@keyframes blinkingText1 {
+    0%   { color: var(--red); }
+    49%  { color: var(--red); }
+    60%  { color: transparent; }
+    99%  { color: transparent; }
+    100% { color: var(--red); }
+}
+
+.blinking2 {
+    animation: blinkingText2 1.2s infinite;
+}
+
+@keyframes blinkingText2 {
+    0%   { color: var(--green) !important; }
+    49%  { color: var(--green) !important; }
+    60%  { color: transparent !important; }
+    99%  { color: transparent !important; }
+    100% { color: var(--green) !important; }
+}
+
+/* ---------- Dividers ---------- */
+
+.break {
+    background: linear-gradient(90deg, var(--cyan), transparent);
+    height: 1px;
+    width: 100%;
+    border-radius: 0;
+    margin: 18px 0 0;
+    opacity: .5;
+}
+
+.break2 {
+    height: 1px;
+    width: 100%;
+    background: var(--edge-soft);
+    border-radius: 0;
+    margin: 16px 0 0;
+}
+
+/* ---------- Status readout cards ---------- */
+
+.info-status {
+    width: 100%;
+    border: 1px solid var(--edge-soft);
+    border-radius: 0;
+    padding: 14px;
+    margin-top: 10px;
+    background: var(--field);
+}
+
+.status-holder {
+    display: block;
+    padding: 8px 4px 14px;
+    font-size: 13px;
+    width: 100%;
+    color: var(--ink);
+    box-shadow: none;
+}
+
+.status-holder:last-child {
+    padding-bottom: 4px;
+}
+
+.info-title {
+    width: 100%;
+    padding: 8px 12px;
+    margin-bottom: 8px;
+    color: var(--cyan);
+    border: none;
+    border-bottom: 1px solid var(--edge-soft);
+    border-radius: 0;
+    background: rgba(0, 217, 255, .03);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .14em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.info-title img {
+    width: 18px;
+    height: 18px;
+    opacity: .85;
+}
+
+/* ---------- Insert-coin panel ---------- */
+
+.inscoin {
+    width: 100%;
+    border: 1px solid var(--edge-soft);
+    border-radius: 0;
+    padding: 12px;
+    background: var(--field);
+}
+
+.inscoinholder {
+    display: block;
+    height: auto;
+    min-height: 50px;
+    margin-top: 12px;
+}
+
+.vcCodeHolder,
+.convertVoucherBlock {
+    border: 1px solid var(--edge) !important;
+    border-radius: 0 !important;
+    padding: 12px !important;
+    height: auto !important;
+    background: var(--surface-2);
+}
+
+/* ---------- Vendo selector ---------- */
+
+#vendoSelectDiv {
+    border: 1px solid var(--edge-soft);
+    border-radius: 0;
+    padding: 12px 14px 16px;
+    margin-bottom: 20px;
+    background: var(--field);
+}
+
+#vendoSelectDiv label {
+    color: var(--muted);
+    font-size: 12.5px;
+}
+
+#vendoSelected {
+    display: block;
+    padding: 9px 12px;
+    width: 100%;
+    border: 1px solid var(--edge);
+    border-radius: 0;
+    background-color: var(--field);
+    color: var(--ink);
+    font-family: var(--font-mono);
+    font-size: 13.5px;
+}
+
+/* ---------- Form fields ---------- */
+
+.form-control {
+    display: block;
+    width: 100%;
+    padding: 9px 12px;
+    border: 1px solid var(--edge);
+    border-radius: 0;
+    background-color: var(--field);
+    color: var(--ink);
+    font-family: var(--font-mono);
+    font-size: 13.5px;
+    height: auto;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--cyan);
+    box-shadow: 0 0 0 3px rgba(0, 217, 255, .12);
+    background-color: var(--field);
+    color: var(--ink);
+}
+
+.form-control::placeholder {
+    color: var(--faint);
+}
+
+.form-control:disabled,
+.form-control[disabled] {
+    color: var(--muted);
+    background-color: var(--surface-2);
+}
+
+select.form-control {
+    appearance: none;
+    -webkit-appearance: none;
+    padding-right: 34px;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%237d939b' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    cursor: pointer;
+}
+
+label,
+.form-text,
+.text-muted {
+    color: var(--muted) !important;
+    font-size: 12.5px;
+}
+
+.rate-title {
+    color: var(--muted);
+    font-weight: 600;
+}
+
+.form-group {
+    border: 1px solid var(--edge-soft);
+    border-top: 2px solid var(--cyan);
+    border-radius: 0;
+    padding: 16px 16px 18px;
+    background: var(--field);
+}
+
+/* Collapse the legacy <br> spacers so the voucher block stays compact */
+.form-group br {
+    display: none;
+}
+
+.form-group .form-text {
+    padding: 0 !important;
+    display: block;
+    margin: 0;
+}
+
+/* "VOUCHER" turns into a cyan mono eyebrow to match the HUD panels */
+.form-group > .form-text:first-child {
+    color: var(--cyan) !important;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .16em;
+    margin-bottom: 10px;
+}
+
+.form-group > .form-text:first-child::before {
+    content: "\25A0";
+    font-size: 8px;
+    margin-right: 8px;
+    vertical-align: 1px;
+    color: var(--cyan);
+}
+
+.form-group #voucherInput {
+    text-align: center;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+
+.form-group #voucherHelp {
+    margin-top: 8px;
+    font-size: 11.5px;
+    color: var(--faint) !important;
+    text-align: center;
+}
+
+.form-group #connectBtn {
+    margin-top: 14px !important;
+}
+
+/* ---------- Buttons: outline HUD style ---------- */
+
+.btn {
+    background-color: transparent !important;
+    border: 1px solid var(--edge) !important;
+    border-radius: 0 !important;
+    padding: 11px 14px;
+    color: var(--ink) !important;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    text-shadow: none !important;
+    box-shadow: none !important;
+    cursor: pointer;
+    transition: background-color .15s ease, border-color .15s ease, color .15s ease, transform .1s ease;
+}
+
+.btn:hover {
+    background-color: rgba(255, 255, 255, .05) !important;
+}
+
+.btn:active {
+    transform: translateY(1px);
+}
+
+.btn:focus,
+.btn.focus {
+    box-shadow: 0 0 0 3px rgba(0, 217, 255, .18) !important;
+}
+
+.btn-success {
+    border-color: rgba(46, 230, 168, .5) !important;
+    color: var(--green) !important;
+}
+
+.btn-warning {
+    border-color: rgba(255, 178, 36, .55) !important;
+    color: var(--amber) !important;
+}
+
+.btn-info {
+    border-color: rgba(0, 217, 255, .5) !important;
+    color: var(--cyan) !important;
+}
+
+.btn-primary {
+    border-color: rgba(77, 163, 255, .55) !important;
+    color: var(--blue) !important;
+}
+
+.btn-danger {
+    border-color: rgba(255, 82, 87, .55) !important;
+    color: var(--red) !important;
+}
+
+.btn-secondary,
+.btn-default {
+    border-color: var(--edge) !important;
+    color: var(--muted) !important;
+}
+
+/* Even out the stacked action buttons: drop the legacy <br> / empty spacer
+   divs the markup uses and give every top-level button a uniform gap. */
+.login > br {
+    display: none;
+}
+
+.login > div:empty {
+    display: none !important;
+}
+
+.login > .btn {
+    margin: 0 0 12px;
+}
+
+/* Hero call-to-action: INSERT COIN / EXTEND TIME */
+#insertBtn {
+    display: block;
+    width: 100%;
+    height: auto;
+    padding: 15px 14px;
+    margin: 6px 0 12px;
+    border: 1px solid var(--cyan) !important;
+    border-radius: 0 !important;
+    background: rgba(0, 217, 255, .1) !important;
+    color: var(--cyan) !important;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    text-shadow: none !important;
+    box-shadow: 0 0 22px rgba(0, 217, 255, .18) !important;
+    animation: none !important;
+    transition: background-color .15s ease, box-shadow .15s ease;
+}
+
+#insertBtn:hover {
+    background: rgba(0, 217, 255, .18) !important;
+    box-shadow: 0 0 30px rgba(0, 217, 255, .3) !important;
+}
+
+/* ---------- Progress bar (coin reader) ---------- */
+
+/* Fixed height is required: core.js rewrites #progressDiv's style attribute to
+   just "width: N%", wiping the inline height, so the track can't rely on the
+   bar's own height. Bootstrap stretches .progress-bar to fill this height. */
+.progress {
+    background-color: var(--field) !important;
+    border: 1px solid var(--edge) !important;
+    border-radius: 0 !important;
+    height: 26px !important;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: var(--cyan) !important;
+    background-image: linear-gradient(45deg, rgba(0, 0, 0, .18) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, .18) 50%, rgba(0, 0, 0, .18) 75%, transparent 75%, transparent) !important;
+    background-size: 1rem 1rem;
+    color: var(--bg);
+}
+
+/* ---------- Modals ---------- */
+
+.modal-content {
+    background-color: var(--surface);
+    color: var(--ink);
+    border: 1px solid var(--edge);
+    border-radius: 0;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, .6);
+}
+
+.modal-header,
+.modal-footer {
+    border-color: var(--edge-soft);
+}
+
+.modal-title {
+    color: var(--cyan);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+}
+
+.modal-body {
+    height: auto !important;
+    width: 100%;
+}
+
+.close {
+    color: var(--muted);
+    opacity: 1;
+    text-shadow: none;
+    transition: color .15s ease;
+}
+
+.close:hover {
+    color: var(--red);
+    opacity: 1;
+}
+
+.close span[aria-hidden] {
+    color: inherit !important;
+}
+
+.modal-backdrop.show {
+    opacity: .7;
+    background: #000;
+}
+
+/* ---------- Toast notifications (jquery toast plugin -> Bootstrap toast) ----------
+   The plugin builds .toast > .toast-header.bg-{success|info|warning|danger} +
+   .toast-body; toast.min.css forces a white body. Re-skin to a HUD card with a
+   left accent bar coloured by type. */
+
+#toast-container.toast-container {
+    z-index: 100000;
+    margin: 10px;
+}
+
+.toast {
+    min-width: 240px;
+    background: var(--surface) !important;
+    border: 1px solid var(--edge) !important;
+    border-radius: 0 !important;
+    box-shadow: 0 12px 34px rgba(0, 0, 0, .55) !important;
+    opacity: 1 !important;
+    color: var(--ink);
+    font-family: var(--font-ui);
+    overflow: hidden;
+}
+
+.toast .toast-header {
+    background: var(--surface-2) !important;
+    color: var(--ink) !important;
+    border: none !important;
+    border-bottom: 1px solid var(--edge-soft) !important;
+    border-radius: 0 !important;
+    padding: 9px 12px;
+    box-shadow: inset 3px 0 0 var(--cyan);
+}
+
+.toast .toast-header strong {
+    color: var(--cyan);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+}
+
+.toast .toast-header small,
+.toast .toast-header small.text-white {
+    color: var(--muted) !important;
+}
+
+.toast .toast-header .close,
+.toast .toast-header .close span {
+    color: var(--muted) !important;
+    text-shadow: none !important;
+    opacity: 1 !important;
+}
+
+.toast .toast-header .close:hover,
+.toast .toast-header .close:hover span {
+    color: var(--red) !important;
+}
+
+.toast .toast-body {
+    background: var(--surface) !important;
+    color: var(--ink) !important;
+    font-size: 13px;
+    padding: 11px 12px;
+}
+
+/* Type accents */
+.toast .toast-header.bg-success {
+    background: rgba(46, 230, 168, .09) !important;
+    box-shadow: inset 3px 0 0 var(--green);
+}
+.toast .toast-header.bg-success strong { color: var(--green); }
+
+.toast .toast-header.bg-danger {
+    background: rgba(255, 82, 87, .09) !important;
+    box-shadow: inset 3px 0 0 var(--red);
+}
+.toast .toast-header.bg-danger strong { color: var(--red); }
+
+.toast .toast-header.bg-warning {
+    background: rgba(255, 178, 36, .09) !important;
+    box-shadow: inset 3px 0 0 var(--amber);
+}
+.toast .toast-header.bg-warning strong { color: var(--amber); }
+
+.toast .toast-header.bg-info {
+    background: rgba(0, 217, 255, .09) !important;
+    box-shadow: inset 3px 0 0 var(--cyan);
+}
+.toast .toast-header.bg-info strong { color: var(--cyan); }
+
+/* ---------- Member login card ---------- */
+
+.memdiv {
+    width: 92%;
+    padding: 20px;
+    margin: auto;
+    border: 1px solid var(--edge-soft);
+    border-radius: 0;
+    box-shadow: none;
+    background: var(--field);
+}
+
+.memdiv input {
+    display: block;
+    width: 100%;
+    border-radius: 0;
+    padding: 9px 12px;
+    border: 1px solid var(--edge);
+    background-color: var(--field);
+    color: var(--ink);
+    font-family: var(--font-mono);
+    margin-bottom: 6px;
+}
+
+.memdiv input:focus {
+    outline: none;
+    border-color: var(--cyan);
+    box-shadow: 0 0 0 3px rgba(0, 217, 255, .12);
+}
+
+/* ---------- Tables ---------- */
+
+.table {
+    color: var(--ink);
+    border: none;
+}
+
+.table th {
+    border: none;
+    border-bottom: 1px solid var(--edge);
+    color: var(--cyan);
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+}
+
+.table td {
+    border-top: 1px solid var(--edge-soft);
+    color: var(--ink);
+}
+
+/* ---------- Rate rows ---------- */
+
+#ratesBody {
+    border: none;
+}
+
+.rholder {
+    width: 100%;
+    padding: 12px 14px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--edge-soft);
+    border-left: 2px solid var(--cyan);
+    margin-bottom: 16px;
+    border-radius: 0;
+    background: var(--field);
+    box-shadow: none;
+}
+
+.rdata {
+    text-align: left;
+    text-shadow: none;
+    color: var(--ink);
+    padding-left: 14px;
+    font-weight: 600;
+}
+
+/* ---------- Footer ---------- */
+
+.footer {
+    border-radius: 0;
+    border: 1px solid var(--edge-soft);
+    border-top: 1px solid var(--edge-soft);
+    margin-top: 24px;
+    padding: 12px;
+    color: var(--muted);
+    text-align: center;
+    font-size: 12px;
+    font-family: var(--font-mono);
+    letter-spacing: .04em;
+    background: var(--field);
+}
+
+.footers a {
+    text-decoration: none;
+    color: var(--cyan);
+}
+
+.footers a:hover {
+    color: #7deaff;
+}
+
+/* ---------- QR code (must stay light for scanning) ---------- */
+
+.qrcode-wrapper {
+    background-color: #fff;
+    padding: 23px;
+    width: fit-content;
+    border: 1px solid var(--edge);
+    margin: 0 auto;
+}
+
+/* ---------- Loading spinner (HUD ring, overrides core.css) ---------- */
+
+.spinner {
+    position: fixed;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    opacity: 1;
+    background: rgba(2, 7, 9, .88);
+    backdrop-filter: blur(4px);
+}
+
+.spinner > center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.spinner > center::before,
+.spinner > img + *::before {
+    content: none;
+}
+
+.spinner img {
+    width: 90px;
+    filter: drop-shadow(0 0 10px rgba(0, 217, 255, .5));
+}
+
+.spinner.hidden {
+    animation: fadeOut 1s;
+    animation-fill-mode: forwards;
+    display: none;
+}
+
+@keyframes fadeOut {
+    0%   { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+/* ---------- Misc ---------- */
+
+.input-bottom-space-20px {
+    margin-bottom: 20px;
+}
+
+.holder {
+    height: auto;
+    width: 100%;
+    border: 1px solid var(--edge-soft);
+    padding: 10px;
+    display: block;
+}
+
+#overlay {
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .75);
+    z-index: 2;
+    cursor: pointer;
+}
+
+#overlay-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 15px;
+    color: var(--ink);
+    transform: translate(-50%, -50%);
+}
+
+.ads {
+    width: 350px;
+    height: auto;
+    border-radius: 0;
+    box-shadow: 0 0 0 1px var(--edge);
+}
+
+.col-sm-6 {
+    margin-bottom: 15px;
+}
+
+/* Generic error page (error.html) */
+.main .wrap {
+    max-width: 640px;
+    margin: 60px auto;
+    padding: 24px;
+    background: var(--surface);
+    border: 1px solid var(--edge-soft);
+}
+
+.main .wrap h1 {
+    color: var(--red);
+    font-family: var(--font-mono);
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+}
+
+.main .wrap .info a {
+    color: var(--cyan);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .footer {
+        font-size: 11px;
+    }
+    .info-ip,
+    .info-mac {
+        display: flex;
+        margin: 6px auto;
+        justify-content: center;
+    }
+}
+</content>

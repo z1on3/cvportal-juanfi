@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- JuanFi HUD loader: dark track ring + rotating cyan arc, transparent bg -->
+<svg xmlns="http://www.w3.org/2000/svg" width="200px" height="200px" viewBox="0 0 50 50" preserveAspectRatio="xMidYMid" style="shape-rendering:auto;display:block">
+  <circle cx="25" cy="25" r="20" fill="none" stroke="#16333d" stroke-width="4"/>
+  <circle cx="25" cy="25" r="20" fill="none" stroke="#00d9ff" stroke-width="4" stroke-linecap="round" stroke-dasharray="34 92">
+    <animateTransform attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.9s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="25" cy="25" r="11" fill="none" stroke="#0e2229" stroke-width="2"/>
+  <circle cx="25" cy="25" r="11" fill="none" stroke="#2ee6a8" stroke-width="2" stroke-linecap="round" stroke-dasharray="17 52">
+    <animateTransform attributeName="transform" type="rotate" from="360 25 25" to="0 25 25" dur="1.1s" repeatCount="indefinite"/>
+  </circle>
+</svg>
